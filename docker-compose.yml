@@ -15,13 +15,13 @@ services:
     mssql:
         image: "microsoft/mssql-server-linux"
         volumes:
-            - ./../db:/var/opt/mssql/
-            - /var/opt/mssql/data
+            - ../db:/var/opt/mssql/
+            #- ../db/data:/var/opt/mssql/data
         restart: always
         ports:
             - "2000:1433"
         environment:
             SA_PASSWORD: "B1zt0nság2"
             ACCEPT_EULA: "Y"
+            MSSQL_PID: "Express"
 
-# 
