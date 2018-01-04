@@ -1,0 +1,27 @@
+﻿version: "3"
+services:
+    web:
+        # build: . ez kell, ha nem a cloud.docker-ről akarom lehúzni hanem a helyi forráskóból akarom a buildet csinálni 
+        image: "eblit/ekaer:QhrEkaer" # ez akkor kell, ha a felhőből húzza le a konténert
+        restart: always
+        ports:
+            - "5000:5000"
+        depends_on:
+            - mssql
+        environment:
+            - ConnectionStrings:DefaultConnection=Server=mssql;Database=EkaerMtence_DB;User Id=sa;Password=B1zt0nság2;MultipleActiveResultSets=true;
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://*:5000
+    mssql:
+        image: "microsoft/mssql-server-linux"
+        volumes:
+            - ./../db:/var/opt/mssql/
+            - /var/opt/mssql/data
+        restart: always
+        ports:
+            - "2000:1433"
+        environment:
+            SA_PASSWORD: "B1zt0nság2"
+            ACCEPT_EULA: "Y"
+
+# 
